@@ -1,0 +1,379 @@
+/* Import original project fonts (must come before other rules) */
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: Ayuthaya, "DM Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  }
+}
+
+/* Original project styles */
+:root {
+    --dark: #000;
+    --light: #f9f4eb;
+    --light2: #f0ece5;
+    --accent-1: #e5d9f6;
+    --accent-2: #ffd2f3;
+    --accent-3: #fcdca6;
+    /* Controls vertical offset between header and cards */
+    --cards-offset-y: 8vh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+p {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+span {
+    text-transform: uppercase;
+    font-family: Ayuthaya, "DM Sans", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+nav {
+    position: fixed;
+    width: 100vw;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2;
+}
+
+.logo span,
+.menu-btn span {
+    font-size: 0.8rem;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+}
+
+.logo span {
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.menu-btn span {
+    background-color: var(--light2);
+    color: var(--dark);
+}
+
+section {
+    position: relative;
+    width: 100vw;
+    height: 100svh;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.hero {
+    background-color: var(--light);
+    color: var(--dark);
+}
+
+.about,
+.outro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark);
+    color: var(--light);
+}
+
+.hero-cards {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.hero-cards .card {
+    flex: 1;
+    position: relative;
+    aspect-ratio: 5/7;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.hero-cards .card span {
+    font-size: 0.75rem;
+}
+
+.hero-cards .card#hero-card-1 {
+    background-color: var(--accent-1);
+    transform-origin: top right;
+    z-index: 2;
+}
+
+.hero-cards .card#hero-card-2 {
+    background-color: var(--accent-2);
+    z-index: 1;
+}
+
+.hero-cards .card#hero-card-3 {
+    background-color: var(--accent-3);
+    transform-origin: top left;
+    z-index: 0;
+}
+
+.services {
+    padding: 8rem 2rem;
+}
+
+.services-header {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    transform: translateY(400%);
+    will-change: transform;
+}
+
+/* Ensure services title is visible on light background */
+.services, .services-header {
+    color: var(--dark);
+}
+
+.cards {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100svh;
+    display: flex;
+    justify-content: center;
+    z-index: -1;
+    background-color: var(--light);
+}
+
+/* Ensure all card texts are black on light backgrounds */
+.cards,
+.flip-card-front,
+.flip-card-back {
+    color: var(--dark);
+}
+
+.cards-container {
+    position: relative;
+    width: 75%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4rem;
+    transform: translateY(var(--cards-offset-y));
+}
+
+.cards-container .card {
+    flex: 1;
+    position: relative;
+    aspect-ratio: 5/7;
+    perspective: 1000px;
+}
+
+.cards-container .card .card-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    animation: floating 2s infinite ease-in-out;
+}
+
+@keyframes floating {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        transform: translate(-50%, -55%);
+    }
+
+    100% {
+        transform: translate(-50%, -50%);
+    }
+}
+
+#card-1 .card-wrapper {
+    animation-delay: 0
+}
+
+#card-2 .card-wrapper {
+    animation-delay: 0.25s;
+}
+
+#card-3.card-wrapper {
+    animation-delay: 0.5s;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 1rem;
+    backface-visibility: hidden;
+    overflow: hidden;
+}
+
+.flip-card-front {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#card-1 .flip-card-front {
+    background-color: var(--accent-1);
+}
+
+#card-2 .flip-card-front {
+    background-color: var(--accent-2);
+}
+
+#card-3 .flip-card-front {
+    background-color: var(--accent-3);
+}
+
+.flip-card-back {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    background-color: #fff;
+    transform: rotateY(180deg);
+}
+
+.card-copy {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.card-copy p {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    background-color: var(--light2);
+    border-radius:0.25rem;
+}
+
+#card-1 {
+    transform: translateX(100%) translateY(-100%) rotate(-5deg) scale(0.25);
+    z-index: 2;
+}
+
+#card-2 {
+    transform: translateX(0%) translateY(-100%) rotate(0deg) scale(0.25);
+    z-index: 1;
+}
+
+#card-3 {
+    transform: translateX(-100%) translateY(-100%) rotate(5deg) scale(0.25);
+    z-index: 0;
+}
+
+.cards-container .card {
+    opacity: 0;
+}
