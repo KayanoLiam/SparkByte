@@ -146,6 +146,28 @@ section {
     color: var(--dark);
 }
 
+/* 品牌标签：置于三卡片上方，保持大小写，纯文本无背景 */
+.hero-brand {
+    position: absolute;
+    top: 12%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0;
+    border-radius: 0;
+    background-color: transparent;
+    color: var(--dark);
+    z-index: 1;
+    box-shadow: none;
+    will-change: transform;
+}
+
+.hero-brand span {
+    text-transform: none; /* 保留 “SParkByte” 原始大小写 */
+    font-size: clamp(2rem, 6vw, 3rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
 .about,
 .outro {
     display: flex;

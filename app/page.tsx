@@ -1,11 +1,26 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "lenis";
+import { LoginForm } from "@/components/login-form";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isLoginMounted, setIsLoginMounted] = useState(false);
+
+  const openLogin = () => {
+    setIsLoginMounted(true);
+    setIsLoginOpen(true);
+  };
+
+  const closeLogin = () => {
+    setIsLoginOpen(false);
+    // 等待退场动画结束后卸载
+    setTimeout(() => setIsLoginMounted(false), 200);
+  };
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -47,6 +62,19 @@ export default function Home() {
 
           gsap.set(cardId, { y, scale, x, rotation });
         });
+      },
+    });
+    // 品牌标签滚动动效
+    const brandUpdate = ScrollTrigger.create({
+      trigger: ".hero",
+      start: "top top",
+      end: "75% top",
+      scrub: 1,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        const brandY = gsap.utils.interpolate("0%", "-30%", smoothStep(progress));
+        const brandOpacity = gsap.utils.interpolate(1, 0.85, smoothStep(progress));
+        gsap.set(".hero-brand", { y: brandY, opacity: brandOpacity });
       },
     });
 
@@ -158,6 +186,7 @@ export default function Home() {
 
     return () => {
       heroTrigger.kill();
+      brandUpdate.kill();
       servicesPin.kill();
       cardsPositioning.kill();
       servicesUpdate.kill();
@@ -167,14 +196,83 @@ export default function Home() {
     };
   }, []);
 
+  // 打开弹窗时锁定页面滚动
+  useEffect(() => {
+    if (isLoginMounted) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isLoginMounted]);
+
+  // ESC 键关闭
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isLoginMounted) {
+        closeLogin();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isLoginMounted]);
+
   return (
     <main>
       <nav>
         <div className="logo"><span>Site Logo</span></div>
-        <div className="menu-btn"><span>Menu</span></div>
+        <div className="menu-btn">
+          <Button
+            onClick={openLogin}
+            size="sm"
+            variant="default"
+            aria-haspopup="dialog"
+            aria-expanded={isLoginOpen}
+            className="text-[0.8rem]"
+          >
+            Login
+          </Button>
+        </div>
       </nav>
 
+      {isLoginMounted && (
+        <div
+          className={`fixed inset-0 z-50 flex items-center justify-center ${
+            isLoginOpen
+              ? "animate-in fade-in duration-300 ease-out"
+              : "animate-out fade-out duration-200 ease-in"
+          }`}
+        >
+          <div
+            className="absolute inset-0 bg-[var(--dark)]/50 backdrop-blur-sm"
+            onClick={closeLogin}
+          />
+          <div
+            className={`relative z-50 w-full max-w-sm mx-4 ${
+              isLoginOpen
+                ? "animate-in zoom-in-95 slide-in-from-top-8 duration-300 ease-out"
+                : "animate-out zoom-out-95 slide-out-to-top-8 duration-200 ease-in"
+            }`}
+          >
+            <div className="absolute -top-3 right-0">
+              <Button
+                onClick={closeLogin}
+                size="sm"
+                aria-label="Close login"
+                className="text-xs px-2 py-1"
+              >
+                Close
+              </Button>
+            </div>
+            <LoginForm />
+          </div>
+        </div>
+      )}
+
       <section className="hero">
+        <div className="hero-brand"><span>SparkByte</span></div>
         <div className="hero-cards">
           <div className="card" id="hero-card-1">
             <div className="card-title">

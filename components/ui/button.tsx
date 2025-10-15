@@ -9,15 +9,19 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        // 主按钮更活泼：使用强调色，提升视觉活力
         default:
-          "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+          "bg-[var(--accent-2)] text-[var(--dark)] shadow hover:bg-[var(--accent-2)]/90",
         destructive:
           "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+        // 轮廓按钮：浅色背景、深色文字，悬停用柔和强调色
         outline:
-          "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+          "border border-[var(--border)] bg-[var(--light)] text-[var(--dark)] shadow-sm hover:bg-[var(--accent-1)]",
+        // 次按钮更活泼：使用另一强调色
         secondary:
-          "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+          "bg-[var(--accent-3)] text-[var(--dark)] shadow-sm hover:bg-[var(--accent-3)]/90",
+        // 幽灵按钮：悬停以强调色微亮
+        ghost: "hover:bg-[var(--accent-2)] hover:text-[var(--dark)]",
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
